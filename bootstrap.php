@@ -19,7 +19,7 @@ $injector->define(BeanstalkClient::class, [
 ]);
 
 $router = \Aerys\router()
-    ->route("POST", "github", $injector->make(Hook::class));
+    ->route("POST", "hook/{owner}/{repository}", $injector->make(Hook::class));
 
 (new Host)
     ->expose("*", $config["app.port"] ?? 80)
