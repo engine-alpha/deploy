@@ -1,0 +1,14 @@
+{
+	"name": "engine-alpha/deploy",
+	"description": "Engine Alpha Deploy Tools.",
+	"authors": [
+		{
+			"name": "Niklas Keller",
+			"email": "me@kelunik.com"
+		}
+	],
+	"autoload": {
+		"psr-4": { "App\\": "src" },
+		"files": [ "config.php", "functions.php" ]
+	}
+}
