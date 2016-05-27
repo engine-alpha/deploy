@@ -85,7 +85,7 @@ cd -
 # ----- PACKAGE MARKETING MATERIAL ----- #
 # -------------------------------------- #
 
-wget -O ${DEST_DIR}/engine-alpha.pdf https://github.com/engine-alpha/marketing/raw/master/Engine%20Alpha.pdf
+wget -O ${DEST_DIR}/${GIT_REF}/engine-alpha.pdf https://github.com/engine-alpha/marketing/raw/master/Engine%20Alpha.pdf
 
 # ---------------------------------- #
 # ----- BUILD COMBINED ARCHIVE ----- #
