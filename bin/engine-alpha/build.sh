@@ -18,7 +18,7 @@ function cleanup {
 }
 
 # Check whether we're interested in building that reference at all ...
-if [[ ${GIT_REF} =~ ^v[0-9]+\.[0-9]+(?:\.[0-9]+)?$ ]]; then
+if [[ ${GIT_REF} =~ ^v[0-9]+\.[0-9]+(\.[0-9]+)?$ ]]; then
     echo "Packaging release ... "
 elif [[ ${GIT_REF} = "master" ]]; then
     echo "Packaging nightly ... "
