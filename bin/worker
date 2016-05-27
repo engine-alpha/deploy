@@ -24,7 +24,7 @@ Amp\run(function () use ($client) {
 
         if ($job->owner === "engine-alpha" && $job->repository === "engine-alpha") {
             if ($job->event === "push") {
-                if ($job->payload->data->ref !== "refs/heads/master") {
+                if ($job->payload->ref !== "refs/heads/master") {
                     yield $client->delete($id);
 
                     continue;
@@ -35,7 +35,7 @@ Amp\run(function () use ($client) {
                 ];
             } else if ($job->event === "release") {
                 $env = [
-                    "GIT_REF" => $job->payload->data->release->tag_name,
+                    "GIT_REF" => $job->payload->release->tag_name,
                 ];
             } else {
                 yield $client->delete($id);
