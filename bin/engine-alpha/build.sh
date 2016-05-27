@@ -92,7 +92,7 @@ wget -O ${DEST_DIR}/${GIT_REF}/engine-alpha.pdf https://github.com/engine-alpha/
 # ---------------------------------- #
 
 cd ${DEST_DIR}/${GIT_REF}
-zip -r ../${GIT_REF}.zip *
+zip -r ${DEST_DIR}/${GIT_REF}.zip *
 cd -
 
 cleanup
