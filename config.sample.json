@@ -1,0 +1,6 @@
+{
+    "app.port": 80,
+    "beanstalk": "tcp://localhost:11300",
+    "deploy": "/var/www/git.engine-alpha.org",
+    "github.secret": ""
+}

@@ -1,0 +1,61 @@
+#!/usr/bin/env php
+<?php
+
+use Amp\Beanstalk\BeanstalkClient;
+use Amp\Process;
+use Auryn\Injector;
+
+$config = json_decode(file_get_contents(__DIR__ . "/../config.json"), true);
+
+$injector = new Injector;
+$injector->define(BeanstalkClient::class, [
+    ":uri" => $config["beanstalk"],
+]);
+
+$client = $injector->make(BeanstalkClient::class);
+
+Amp\run(function () use ($client) {
+    while (true) {
+        list($id, $payload) = yield $client->reserve();
+
+        $job = json_decode($payload);
+
+        if ($job->owner === "engine-alpha" && $job->repository === "engine-alpha") {
+            if ($job->event === "push") {
+                if ($job->payload->data->ref !== "refs/heads/master") {
+                    yield $client->delete($id);
+
+                    continue;
+                }
+
+                $env = [
+                    "GIT_REF" => "master",
+                ];
+            } else if ($job->event === "release") {
+                $env = [
+                    "GIT_REF" => $job->payload->data->release->tag_name,
+                ];
+            } else {
+                yield $client->delete($id);
+
+                continue;
+            }
+
+            $command = escapeshellarg(__DIR__ . "/engine-alpha/build.sh");
+
+            $process = new Process($command, [
+                "env" => $env,
+            ]);
+
+            $result = yield $process->exec()->watch(function ($data) {
+                list($type, $message) = $data;
+
+                fputs($type === "out" ? STDOUT : STDERR, $message);
+            });
+
+            fputs(STDOUT, "Process '{$command}' exited with code {$result->exit}.");
+        }
+
+        yield $client->delete($id);
+    }
+});

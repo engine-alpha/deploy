@@ -1,14 +1,21 @@
 {
-	"name": "engine-alpha/deploy",
-	"description": "Engine Alpha Deploy Tools.",
-	"authors": [
-		{
-			"name": "Niklas Keller",
-			"email": "me@kelunik.com"
-		}
-	],
-	"autoload": {
-		"psr-4": { "App\\": "src" },
-		"files": [ "config.php", "functions.php" ]
-	}
+    "name": "engine-alpha/deploy",
+    "description": "Engine Alpha Deploy Tools.",
+    "authors": [
+        {
+            "name": "Niklas Keller",
+            "email": "me@kelunik.com"
+        }
+    ],
+    "require": {
+        "amphp/aerys": "^0.4.3",
+        "amphp/beanstalk": "^0.1.1",
+        "rdlowrey/auryn": "^1.4",
+        "amphp/process": "^0.1.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src"
+        }
+    }
 }
