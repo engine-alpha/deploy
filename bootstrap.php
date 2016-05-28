@@ -47,7 +47,7 @@ $router = \Aerys\router()
             $cache->set("latest.version", $version, 3600);
         }
 
-        $path = $args["path"] ?? "/";
+        $path = empty($args["path"]) ? "/" : $args["path"];
 
         $response->setStatus(302);
         $response->setHeader("location", "/{$version}{$path}");
