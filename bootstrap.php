@@ -35,7 +35,7 @@ $http = new Client(new NullCookieJar);
 $cache = new ArrayCache;
 
 $router = \Aerys\router()
-    ->route("GET", "latest{path:(/.*)?}", function (Request $request, Response $response, array $args) use ($http, $cache) {
+    ->route("GET", "latest{path:(?:/.*)?}", function (Request $request, Response $response, array $args) use ($http, $cache) {
         $version = yield $cache->get("latest.version");
         $versionUrl = "http://engine-alpha.org/wiki/Vorlage:Download-Version?action=raw";
 
