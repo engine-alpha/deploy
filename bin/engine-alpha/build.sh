@@ -83,7 +83,7 @@ zip -r ${DEST_DIR}/${GIT_REF}/engine-alpha-docs.zip *
 cd -
 
 mkdir -p ${DOCS_DIR}/${GIT_REF}
-cp -rpv * ${DOCS_DIR}/${GIT_REF}
+cp -rpv doc/* ${DOCS_DIR}/${GIT_REF}
 
 # -------------------------------------- #
 # ----- PACKAGE MARKETING MATERIAL ----- #
