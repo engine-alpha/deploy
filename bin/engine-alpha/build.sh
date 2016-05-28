@@ -57,9 +57,9 @@ if [[ $? -ne 0 ]]; then
 fi
 
 # Delete maybe existing older versions
-rm ${DEST_DIR}/${GIT_REF}/engine-alpha.jar
-rm ${DEST_DIR}/${GIT_REF}/engine-alpha-docs.zip
-rm ${DEST_DIR}/engine-alpha.pdf
+rm -f ${DEST_DIR}/${GIT_REF}/engine-alpha.jar
+rm -f ${DEST_DIR}/${GIT_REF}/engine-alpha-docs.zip
+rm -f ${DEST_DIR}/engine-alpha.pdf
 
 # Move JAR into final destination
 mkdir -p ${DEST_DIR}/${GIT_REF}
