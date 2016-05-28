@@ -8,6 +8,7 @@ TEMP_DIR=`mktemp -d`
 
 # Deploy directory
 DEST_DIR=/var/www/git.engine-alpha.org/downloads
+DOCS_DIR=/var/www/docs.engine-alpha.org
 
 # Git reference to build. Either a tag or "master", defaults to "master"
 GIT_REF=${GIT_REF:-master}
@@ -80,6 +81,9 @@ fi
 cd doc
 zip -r ${DEST_DIR}/${GIT_REF}/engine-alpha-docs.zip *
 cd -
+
+mkdir -p ${DOCS_DIR}/${GIT_REF}
+cp -rpv * ${DOCS_DIR}/${GIT_REF}
 
 # -------------------------------------- #
 # ----- PACKAGE MARKETING MATERIAL ----- #

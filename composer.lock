@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "02ba7a7c632f033ecb3993081108b16c",
-    "content-hash": "b1efb33d2aedea1ab828377262a2a643",
+    "hash": "d47b51a75cc979258e391048bd964b54",
+    "content-hash": "5fb977bcab3b754db6a3c5695107ed60",
     "packages": [
         {
             "name": "amphp/aerys",
@@ -143,6 +143,64 @@
                 "promise"
             ],
             "time": "2016-05-12 12:54:59"
+        },
+        {
+            "name": "amphp/artax",
+            "version": "v2.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/amphp/artax.git",
+                "reference": "cc665ac890322188bad8b80722d64af6207b770d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/amphp/artax/zipball/cc665ac890322188bad8b80722d64af6207b770d",
+                "reference": "cc665ac890322188bad8b80722d64af6207b770d",
+                "shasum": ""
+            },
+            "require": {
+                "amphp/amp": "^1",
+                "amphp/socket": "^0.9",
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "fabpot/php-cs-fixer": "~1.9",
+                "phpunit/phpunit": "~4.8"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev",
+                    "dev-1.x": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Amp\\Artax\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Lowrey",
+                    "email": "rdlowrey@gmail.com",
+                    "role": "Creator / Lead Developer"
+                }
+            ],
+            "description": "Asynchronous parallel HTTP/1.1 client built on the Amp concurrency framework",
+            "homepage": "https://github.com/amphp/artax",
+            "keywords": [
+                "async",
+                "client",
+                "http",
+                "non-blocking",
+                "parallel",
+                "rest"
+            ],
+            "time": "2016-03-09 11:33:42"
         },
         {
             "name": "amphp/beanstalk",
