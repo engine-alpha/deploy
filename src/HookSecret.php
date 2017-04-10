@@ -9,7 +9,11 @@ class HookSecret {
         $this->secret = $secret;
     }
 
-    public function getSecret() {
+    public function getSecret(): string {
         return $this->secret;
+    }
+
+    public function __toString(): string {
+        return "(redacted)";
     }
 }
