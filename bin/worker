@@ -4,6 +4,7 @@
 use Amp\Beanstalk\BeanstalkClient;
 use Amp\Process;
 use Auryn\Injector;
+use Kelunik\StatsD\StatsD;
 
 require __DIR__ . "/../vendor/autoload.php";
 
@@ -14,9 +15,16 @@ $injector->define(BeanstalkClient::class, [
     ":uri" => $config["beanstalk"],
 ]);
 
-$client = $injector->make(BeanstalkClient::class);
+$injector->define(StatsD::class, [
+    ":server" => "127.0.0.1",
+    ":port" => 8125,
+    ":labelPrefix" => "git.worker.",
+]);
 
-Amp\run(function () use ($client) {
+$client = $injector->make(BeanstalkClient::class);
+$stats = $injector->make(StatsD::class);
+
+Amp\run(function () use ($client, $stats) {
     while (true) {
         list($id, $payload) = yield $client->reserve();
 
@@ -49,13 +57,19 @@ Amp\run(function () use ($client) {
                 "env" => $env,
             ]);
 
+            $stats->startTimer("build.time");
+
             $result = yield $process->exec()->watch(function ($data) {
                 list($type, $message) = $data;
 
                 fputs($type === "out" ? STDOUT : STDERR, $message);
             });
 
+            $stats->stopTimer("build.time");
+
             fputs(STDOUT, "Process '{$command}' exited with code {$result->exit}.");
+
+            $stats->increment("build.exit.{$result->exit}");
         }
 
         yield $client->delete($id);

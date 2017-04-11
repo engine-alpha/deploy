@@ -21,7 +21,6 @@ $injector = new Injector;
 $injector->define(StatsD::class, [
     ":server" => "127.0.0.1",
     ":port" => 8125,
-    ":prefix" => "git.",
 ]);
 
 $injector->define(HookSecret::class, [
