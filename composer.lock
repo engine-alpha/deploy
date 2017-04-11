@@ -587,16 +587,16 @@
         },
         {
             "name": "kelunik/statsd",
-            "version": "v0.1.0",
+            "version": "v0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kelunik/statsd.git",
-                "reference": "a68ae1f8486b56a453e6973081e1697add151a5a"
+                "reference": "44992d1238069dc37b4b143011604695a6859872"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kelunik/statsd/zipball/a68ae1f8486b56a453e6973081e1697add151a5a",
-                "reference": "a68ae1f8486b56a453e6973081e1697add151a5a",
+                "url": "https://api.github.com/repos/kelunik/statsd/zipball/44992d1238069dc37b4b143011604695a6859872",
+                "reference": "44992d1238069dc37b4b143011604695a6859872",
                 "shasum": ""
             },
             "type": "library",
@@ -616,7 +616,7 @@
                 }
             ],
             "description": "Simple StatsD Client.",
-            "time": "2017-01-13T13:22:16+00:00"
+            "time": "2017-04-11T01:31:04+00:00"
         },
         {
             "name": "league/climate",

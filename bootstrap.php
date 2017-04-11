@@ -11,6 +11,8 @@ use Amp\Beanstalk\BeanstalkClient;
 use Amp\Cache\ArrayCache;
 use Auryn\Injector;
 use Kelunik\StatsD\StatsD;
+use function Amp\info;
+use function Amp\repeat;
 
 $config = json_decode(file_get_contents(__DIR__ . "/config.json"), true);
 
@@ -65,3 +67,15 @@ $router = \Aerys\router()
     ->name("docs.engine-alpha.org")
     ->expose("*", $config["app.port"] ?? 80)
     ->use($router);
+
+$stats = $injector->make(StatsD::class);
+
+repeat(function () use ($stats) {
+    $info = info();
+
+    foreach (["immediately", "once", "repeat", "on_writable", "on_signal"] as $event) {
+        foreach (["enabled", "disabled"] as $type) {
+            $stats->gauge("amp.watchers.{$event}.{$type}", $info[$event][$type]);
+        }
+    }
+}, 10000);
