@@ -3,7 +3,6 @@
 namespace App;
 
 use Aerys\Bootable;
-use Aerys\Middleware;
 use Aerys\Request;
 use Aerys\Response;
 use Aerys\Server;

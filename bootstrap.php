@@ -17,7 +17,7 @@ $config = json_decode(file_get_contents(__DIR__ . "/config.json"), true);
 $injector = new Injector;
 
 $injector->define(StatsD::class, [
-    ":server" => "",
+    ":server" => "127.0.0.1",
     ":port" => 8125,
     ":prefix" => "git.",
 ]);
