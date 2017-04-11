@@ -5,17 +5,22 @@ namespace App;
 use Aerys\Request;
 use Aerys\Response;
 use Amp\Beanstalk\BeanstalkClient;
+use Kelunik\StatsD\StatsD;
 
 class Hook {
+    private $stats;
     private $client;
     private $secret;
 
-    public function __construct(BeanstalkClient $client, HookSecret $secret) {
+    public function __construct(StatsD $stats, BeanstalkClient $client, HookSecret $secret) {
+        $this->stats = $stats;
         $this->client = $client;
         $this->secret = $secret;
     }
 
     public function __invoke(Request $request, Response $response, array $args) {
+        $this->stats->increment("github.hook.request");
+
         $owner = $args["owner"];
         $repository = $args["repository"];
 
@@ -30,6 +35,8 @@ class Hook {
         $response->setHeader("content-type", "text/plain");
 
         if (!hash_equals($hmac, $signature)) {
+            $this->stats->increment("github.hook.invalid-signature");
+
             $response->setStatus(400);
             $response->end("Bad signature!");
 
@@ -39,6 +46,8 @@ class Hook {
         $validEvents = ["push", "release"];
 
         if (!in_array($event, $validEvents, true)) {
+            $this->stats->increment("github.hook.invalid-event");
+
             $response->end("Neither push nor release, aborting ...");
 
             return;

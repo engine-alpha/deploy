@@ -10,10 +10,17 @@ use Amp\Artax\Cookie\NullCookieJar;
 use Amp\Beanstalk\BeanstalkClient;
 use Amp\Cache\ArrayCache;
 use Auryn\Injector;
+use Kelunik\StatsD\StatsD;
 
 $config = json_decode(file_get_contents(__DIR__ . "/config.json"), true);
 
 $injector = new Injector;
+
+$injector->define(StatsD::class, [
+    ":server" => "",
+    ":port" => 8125,
+    ":prefix" => "git.",
+]);
 
 $injector->define(HookSecret::class, [
     ":secret" => $config["github.secret"],
