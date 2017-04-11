@@ -31,12 +31,17 @@ $injector->define(BeanstalkClient::class, [
     ":uri" => $config["beanstalk"],
 ]);
 
+$stats = $injector->make(StatsD::class);
+
 $router = \Aerys\router()
     ->route("POST", "hook/{owner}/{repository}", $injector->make(Hook::class));
 
 (new Host)
     ->name("git.engine-alpha.org")
     ->expose("*", $config["app.port"] ?? 80)
+    ->use(function () use ($stats) {
+        $stats->increment("aerys.git.request");
+    })
     ->use($router);
 
 $http = new Client(new NullCookieJar);
@@ -65,9 +70,10 @@ $router = \Aerys\router()
 (new Host)
     ->name("docs.engine-alpha.org")
     ->expose("*", $config["app.port"] ?? 80)
+    ->use(function () use ($stats) {
+        $stats->increment("aerys.docs.request");
+    })
     ->use($router);
-
-$stats = $injector->make(StatsD::class);
 
 repeat(function () use ($stats) {
     $info = info();
