@@ -32,14 +32,14 @@ Amp\run(function () use ($client, $stats) {
 
         if ($job->owner === "engine-alpha" && $job->repository === "engine-alpha") {
             if ($job->event === "push") {
-                if ($job->payload->ref !== "refs/heads/master") {
+                if ($job->payload->ref !== "refs/heads/master" && $job->payload->ref !== "refs/heads/4.x") {
                     yield $client->delete($id);
 
                     continue;
                 }
 
                 $env = [
-                    "GIT_REF" => "master",
+                    "GIT_REF" => \substr($job->payload->ref, \strlen("refs/heads/")),
                 ];
             } else if ($job->event === "release") {
                 $env = [
