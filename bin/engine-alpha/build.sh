@@ -69,7 +69,7 @@ cp build/Engine.Alpha.jar ${DEST_DIR}/${GIT_REF}/engine-alpha.jar
 # ----- BUILD DOCUMENTATION ARCHIVE ----- #
 # --------------------------------------- #
 
-ant docs
+ant -v docs
 
 cd doc
 zip -r ${DEST_DIR}/${GIT_REF}/engine-alpha-docs.zip *
