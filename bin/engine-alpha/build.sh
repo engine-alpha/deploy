@@ -28,6 +28,8 @@ if [[ ${GIT_REF} =~ ^v[0-9]+\.[0-9]+(\.[0-9]+)?$ ]]; then
     echo "Packaging release ... "
 elif [[ ${GIT_REF} = "master" ]]; then
     echo "Packaging nightly ... "
+elif [[ ${GIT_REF} = "4.x" ]]; then
+    echo "Packaging 4.x nightly ... "
 else
     echo "Aborting, because we're not interested in that reference."
     exit 0
